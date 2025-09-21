@@ -199,6 +199,16 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:8081",
     "http://127.0.0.1:8081",
+    "http://localhost:19000",
+    "http://127.0.0.1:19000",
+    "http://localhost:19001",
+    "http://127.0.0.1:19001",
+    "http://localhost:19002",
+    "http://127.0.0.1:19002",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+# Allow all origins in development
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
