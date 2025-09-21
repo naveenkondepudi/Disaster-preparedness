@@ -1,0 +1,232 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>Disaster Preparedness Dashboard</h1>
+    
+    <!-- Overview Statistics -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Users</h3>
+            <div class="stat-number">{{ stats.total_users }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Active Users</h3>
+            <div class="stat-number">{{ stats.active_users }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Learning Modules</h3>
+            <div class="stat-number">{{ stats.total_modules }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Virtual Drills</h3>
+            <div class="stat-number">{{ stats.total_drills }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Emergency Alerts</h3>
+            <div class="stat-number">{{ stats.total_alerts }}</div>
+        </div>
+    </div>
+    
+    <!-- Completion Statistics -->
+    <div class="completion-stats">
+        <h2>Completion Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Lesson Completions</h3>
+                <div class="stat-number">{{ completion_stats.lesson_completions }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Quiz Completions</h3>
+                <div class="stat-number">{{ completion_stats.quiz_completions }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Drill Completions</h3>
+                <div class="stat-number">{{ completion_stats.drill_completions }}</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Top Performers -->
+    <div class="top-performers">
+        <h2>Top Performers</h2>
+        <table class="results">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>User</th>
+                    <th>Points</th>
+                    <th>Badges</th>
+                    <th>Lessons</th>
+                    <th>Quizzes</th>
+                    <th>Drills</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for performer in top_performers %}
+                <tr>
+                    <td>{{ performer.rank }}</td>
+                    <td>{{ performer.user.email }}</td>
+                    <td>{{ performer.total_points }}</td>
+                    <td>{{ performer.badge_count }}</td>
+                    <td>{{ performer.lessons_completed }}</td>
+                    <td>{{ performer.quizzes_completed }}</td>
+                    <td>{{ performer.drills_completed }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Recent Activity -->
+    <div class="recent-activity">
+        <h2>Recent Activity</h2>
+        
+        <div class="activity-section">
+            <h3>Recent Lesson Completions</h3>
+            <table class="results">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Lesson</th>
+                        <th>Points</th>
+                        <th>Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for completion in recent_lesson_completions %}
+                    <tr>
+                        <td>{{ completion.user.email }}</td>
+                        <td>{{ completion.lesson.title }}</td>
+                        <td>{{ completion.points_earned }}</td>
+                        <td>{{ completion.completed_at|date:"M d, Y H:i" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="activity-section">
+            <h3>Recent Quiz Completions</h3>
+            <table class="results">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Quiz</th>
+                        <th>Score</th>
+                        <th>Points</th>
+                        <th>Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for completion in recent_quiz_completions %}
+                    <tr>
+                        <td>{{ completion.user.email }}</td>
+                        <td>{{ completion.quiz.title }}</td>
+                        <td>{{ completion.score }}%</td>
+                        <td>{{ completion.points_earned }}</td>
+                        <td>{{ completion.completed_at|date:"M d, Y H:i" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="activity-section">
+            <h3>Recent Drill Completions</h3>
+            <table class="results">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Drill</th>
+                        <th>Points</th>
+                        <th>Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for completion in recent_drill_completions %}
+                    <tr>
+                        <td>{{ completion.user.email }}</td>
+                        <td>{{ completion.drill_attempt.scenario.title }}</td>
+                        <td>{{ completion.points_earned }}</td>
+                        <td>{{ completion.completed_at|date:"M d, Y H:i" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+.dashboard-container {
+    padding: 20px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.stat-card h3 {
+    margin: 0 0 10px 0;
+    color: #495057;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.completion-stats, .top-performers, .recent-activity {
+    margin-bottom: 30px;
+}
+
+.activity-section {
+    margin-bottom: 20px;
+}
+
+.activity-section h3 {
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.results {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.results th, .results td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.results th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #495057;
+}
+
+.results tr:hover {
+    background-color: #f8f9fa;
+}
+</style>
+{% endblock %}
