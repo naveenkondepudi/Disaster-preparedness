@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
+from . import views
 
 def health_check(request):
     """Health check endpoint for testing."""
@@ -34,4 +35,8 @@ urlpatterns = [
     path('api/drills/', include('drills.urls')),
     path('api/alerts/', include('alerts.urls')),
     path('api/gamification/', include('gamification.urls')),
+    # Database population endpoints
+    path('api/populate/', views.populate_database, name='populate_database'),
+    path('api/force-populate/', views.force_populate_database, name='force_populate_database'),
+    path('api/database-status/', views.database_status, name='database_status'),
 ]

@@ -110,3 +110,9 @@ dprep-backend/
 ├── requirements.txt  # Python dependencies
 └── env.example       # Environment variables template
 ```
+
+
+API Endpoints:
+POST /api/populate/ - Populate database (only if empty)
+POST /api/force-populate/ - Force populate (clears existing data)
+GET /api/database-status/ - Check database status
