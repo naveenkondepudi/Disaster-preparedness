@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-producti
 
 # ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,testserver', cast=lambda v: [s.strip() for s in v.split(',')])
 DEBUG = False   # Make sure DEBUG = False in production
-ALLOWED_HOSTS = ["*"]  # Replace later with your Render URL
+ALLOWED_HOSTS = ["https://disaster-preparedness-8qik.onrender.com"]  # Replace later with your Render URL
 
 # Static files
 STATIC_URL = '/static/'
