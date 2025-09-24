@@ -9,3 +9,4 @@ setuptools>=69.0.0
 requests==2.32.5
 dj_database_url
 python-dotenv
+whitenoise
