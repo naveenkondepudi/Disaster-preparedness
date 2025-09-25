@@ -32,11 +32,23 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-producti
 # ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,testserver', cast=lambda v: [s.strip() for s in v.split(',')])
 DEBUG = False   # Make sure DEBUG = False in production
 ALLOWED_HOSTS = ["*"]  # Replace later with your Render URL
+# CSRF Trusted Origins - keeping existing two and adding three from environment
 CSRF_TRUSTED_ORIGINS = [
     "https://disaster-preparedness-8qik.onrender.com",
-    " https://07e6b3e803a2.ngrok-free.app"
-
+    "https://07e6b3e803a2.ngrok-free.app",
 ]
+
+# Add three additional origins from environment variables
+env_origins = [
+    config('CSRF_TRUSTED_ORIGIN_1', default=''),
+    config('CSRF_TRUSTED_ORIGIN_2', default=''),
+    config('CSRF_TRUSTED_ORIGIN_3', default=''),
+]
+
+# Filter out empty values and add to CSRF_TRUSTED_ORIGINS
+for origin in env_origins:
+    if origin.strip():
+        CSRF_TRUSTED_ORIGINS.append(origin.strip())
 # Static files
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
