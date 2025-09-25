@@ -33,7 +33,9 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-producti
 DEBUG = False   # Make sure DEBUG = False in production
 ALLOWED_HOSTS = ["*"]  # Replace later with your Render URL
 CSRF_TRUSTED_ORIGINS = [
-    "https://disaster-preparedness-8qik.onrender.com"
+    "https://disaster-preparedness-8qik.onrender.com",
+    " https://07e6b3e803a2.ngrok-free.app"
+
 ]
 # Static files
 STATIC_URL = '/static/'
